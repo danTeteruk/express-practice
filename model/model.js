@@ -44,28 +44,28 @@ function getUser(id, cb) {
 }
 
 function addUser(newUser, cb) {
-		fs.readFile('./model/users.json', {encoding: 'utf-8'}, function(err, data){
-			if (err) return cb(err);
+  fs.readFile('./model/users.json', {encoding: 'utf-8'}, function(err, data){
+     if (err) return cb(err);
 
-			try {
-				var users = JSON.parse(data);
-			} catch(e) {
-				return cb(e);
-			}
+     try {
+      var users = JSON.parse(data);
+     } catch(e) {
+       return cb(e);
+     }
 
-			 if (users.length) {
-			  newUser.id =	users[users.length-1].id+1;
-			} else {
-			   newUser.id = 0;
-			};
-			users.push(newUser);
-			fs.writeFile('./model/users.json', JSON.stringify(users), function(err) {
-				if (err) return cb(err);
-			});
+     if (users.length) {
+       newUser.id =	users[users.length-1].id+1;
+     } else {
+       newUser.id = 0;
+     };
+     users.push(newUser);
+     fs.writeFile('./model/users.json', JSON.stringify(users), function(err) {
+       if (err) return cb(err);
+     });
 
-			cb(null, users);
-		});
-	}
+    cb(null, users);
+  });
+}
 
 function deleteUser(id, cb) {
   fs.readFile('./model/users.json', {encoding: 'utf-8'}, function(err, data){
